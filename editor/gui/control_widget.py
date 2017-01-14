@@ -13,14 +13,19 @@ def get_widget(master):
     open_file_btn.pack(fill = tkinter.X)
 
     get_title_widget(widget, 'FILE').pack(fill = tkinter.X, padx = widget_x_padding)
-
     get_fileinfo_widget(widget, ('thisisfilename')).pack(fill = tkinter.X)
 
-    get_title_widget(widget, 'EDIT').pack(fill = tkinter.X, padx = widget_x_padding)
-
+    get_title_widget(widget, 'RESIZE').pack(fill = tkinter.X, padx = widget_x_padding)
     get_edit_widget(widget).pack()
 
+    get_title_widget(widget, 'CONVERT').pack(fill = tkinter.X, padx = widget_x_padding)
+    get_convert_widget(widget).pack(fill = tkinter.X, padx = widget_x_padding)
+
+    get_title_widget(widget, 'ADJUST BRIGHTNESS').pack(fill = tkinter.X, padx = widget_x_padding)
+    get_adjust_widget(widget).pack(fill = tkinter.X, padx = widget_x_padding)
+
     get_title_widget(widget, 'EXPORT').pack(fill = tkinter.X, padx = widget_x_padding)
+    get_export_widget(widget).pack(fill = tkinter.X, padx = widget_x_padding)
 
     return widget
 
@@ -60,31 +65,42 @@ def get_edit_widget(master):
     resize = tkinter.Frame(widget)
     resize.pack()
 
-    x_input = tkinter.Entry(resize, width = 7)
+    x_input = tkinter.Entry(resize, width = 10)
     x_input.insert(0, '1280')
     x_input.pack(side = tkinter.LEFT, expand = True, fill = tkinter.X)
 
-    lock_btn = tkinter.Button(resize, text = '<->')
-    lock_btn.pack(side = tkinter.LEFT, expand = True)
-
-    y_input = tkinter.Entry(resize, width = 7)
+    y_input = tkinter.Entry(resize, width = 10)
     y_input.insert(0, '720')
     y_input.pack(side = tkinter.LEFT, expand = True, fill = tkinter.X)
 
-    crop_btn = tkinter.Button(widget, text = 'Resize image')
-    crop_btn.pack(fill = tkinter.X)
+    return widget
 
-    get_space_widget(widget, widget_y_padding*4).pack()
+def get_convert_widget(master):
+    widget = tkinter.Frame(master, pady = widget_y_padding)
 
-    # apply filter controls
-    selected_filter = tkinter.StringVar(widget)
-    selected_filter.set('- select filter -')
-    filters = tkinter.OptionMenu(widget, selected_filter,
-                'Convert to grayscale', 'Red filter', 'Green filter',
-                'Blue filter')
-    filters.pack(fill = tkinter.X)
+    invert_btn = tkinter.Button(widget, text = 'Invert colors')
+    invert_btn.pack(fill = tkinter.X)
 
-    apply_btn = tkinter.Button(widget, text = 'Apply filter')
-    apply_btn.pack(fill = tkinter.X)
+    gs_btn = tkinter.Button(widget, text = 'Convert to grayscale')
+    gs_btn.pack(fill = tkinter.X)
+
+    edge_btn = tkinter.Button(widget, text = 'Detect edges')
+    edge_btn.pack(fill = tkinter.X)
+
+    return widget
+
+def get_adjust_widget(master):
+    widget = tkinter.Frame(master, pady = widget_y_padding)
+
+    brightness = tkinter.Scale(widget, from_ = -100, to = 100, orient = tkinter.HORIZONTAL)
+    brightness.pack(fill = tkinter.X)
+
+    return widget
+
+def get_export_widget(master):
+    widget = tkinter.Frame(master, pady = widget_y_padding)
+
+    export_btn = tkinter.Button(widget, text = 'Export to file...')
+    export_btn.pack(fill = tkinter.X)
 
     return widget
