@@ -1,7 +1,12 @@
 import tkinter
+import editor.event_handler as evh
+import editor.store as store
+import editor.utils as utils
 
 widget_y_padding = 5
 widget_x_padding = 10
+
+def handle_inverse(ev): evh.capture(('inverse', 0))
 
 def get_widget(master):
     widget = tkinter.Frame(master)
@@ -48,13 +53,17 @@ def get_fileinfo_widget(master, data):
     widget = tkinter.Frame(master, pady = widget_y_padding,
                 padx = widget_x_padding)
 
-    filename = tkinter.Label(widget, text='theimage.png', justify = tkinter.LEFT,
+    filename_var = tkinter.StringVar()
+    filename = tkinter.Label(widget, textvariable = filename_var, justify = tkinter.LEFT,
                     font = 'TkDefaultFont 12 bold')
     filename.pack(anchor = tkinter.W)
+    evh.register(lambda: filename_var.set(store.state['filename']))
 
-    text = tkinter.Label(widget, text='Filesize: 1.4 MB\nDimesions: 1280 x 720',
-                            justify = tkinter.LEFT)
+    fileinfo = tkinter.StringVar()
+    text = tkinter.Label(widget, justify = tkinter.LEFT, textvariable=fileinfo)
     text.pack(anchor = tkinter.W)
+    evh.register(lambda: fileinfo.set(
+        'Filesize: %d MB\nDimesions: %s' % (store.state['filesize'], store.state['filedim'])))
 
     return widget
 
@@ -80,6 +89,7 @@ def get_convert_widget(master):
 
     invert_btn = tkinter.Button(widget, text = 'Invert colors')
     invert_btn.pack(fill = tkinter.X)
+    invert_btn.bind("<Button-1>", handle_inverse)
 
     gs_btn = tkinter.Button(widget, text = 'Convert to grayscale')
     gs_btn.pack(fill = tkinter.X)

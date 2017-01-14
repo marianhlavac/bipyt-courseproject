@@ -9,6 +9,11 @@ def get_nofile_widget(master):
 
     return widget
 
+def get_image_widget(master):
+    widget = tkinter.Frame(master, bg = '#eee')
+
+    return widget
+
 def get_widget(master):
     widget = tkinter.Frame(master, bg = '#eee')
 
