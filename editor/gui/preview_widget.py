@@ -10,7 +10,7 @@ def get_image_widget(master):
     photoimage = ImageTk.PhotoImage(picture)
     store.state['picture'] = photoimage
     canvas = tkinter.Label(widget, image = photoimage, bg = '#eee')
-    canvas.pack()
+    canvas.pack(fill = tkinter.BOTH)
 
     def update():
         if store.state['picture'] is not None:

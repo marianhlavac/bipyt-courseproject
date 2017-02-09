@@ -22,9 +22,6 @@ def get_widget(master):
     get_title_widget(widget, 'FILE').pack(fill = tkinter.X, padx = widget_x_padding)
     get_fileinfo_widget(widget, ('thisisfilename')).pack(fill = tkinter.X)
 
-    get_title_widget(widget, 'RESIZE').pack(fill = tkinter.X, padx = widget_x_padding)
-    get_edit_widget(widget).pack()
-
     get_title_widget(widget, 'CONVERT').pack(fill = tkinter.X, padx = widget_x_padding)
     get_convert_widget(widget).pack(fill = tkinter.X, padx = widget_x_padding)
 
@@ -69,23 +66,6 @@ def get_fileinfo_widget(master, data):
 
     return widget
 
-def get_edit_widget(master):
-    widget = tkinter.Frame(master, pady = widget_y_padding)
-
-    # resize image controls
-    resize = tkinter.Frame(widget)
-    resize.pack()
-
-    x_input = tkinter.Entry(resize, width = 10)
-    x_input.insert(0, '1280')
-    x_input.pack(side = tkinter.LEFT, expand = True, fill = tkinter.X)
-
-    y_input = tkinter.Entry(resize, width = 10)
-    y_input.insert(0, '720')
-    y_input.pack(side = tkinter.LEFT, expand = True, fill = tkinter.X)
-
-    return widget
-
 def get_convert_widget(master):
     widget = tkinter.Frame(master, pady = widget_y_padding)
 
@@ -111,6 +91,9 @@ def get_adjust_widget(master):
 
 def get_export_widget(master):
     widget = tkinter.Frame(master, pady = widget_y_padding)
+
+    revert_btn = tkinter.Button(widget, text = 'Revert changes')
+    revert_btn.pack(fill = tkinter.X)
 
     export_btn = tkinter.Button(widget, text = 'Export to file...')
     export_btn.pack(fill = tkinter.X)
