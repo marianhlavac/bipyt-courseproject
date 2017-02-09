@@ -1,14 +1,16 @@
 import editor.actions as actions
 import editor.store as store
 
-events = [('start', 0)]
+events = [('start', [])]
 updates = []
 
-def handle(event):
-    getattr(actions, event[0])(event[1])
+def handle(event, *params):
+    getattr(actions, event)(params)
 
-def capture(event):
-    events.append(event)
+def capture(event, *params):
+    print(event)
+    print(params)
+    events.append((event, params))
 
 def register(update):
     updates.append(update)

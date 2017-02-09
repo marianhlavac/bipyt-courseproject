@@ -1,6 +1,6 @@
 state = {
-    'picture': 0,
-    'original_picture': 0,
+    'picture': None,
+    'original_picture': None,
     'filename': '<nofile>',
     'filesize': 0,
     'filedim': '0x0'

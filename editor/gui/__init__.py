@@ -7,7 +7,6 @@ def get_window_geometry(window_dim, screen_dim):
     return '%dx%d+%d+%d' % (window_dim[0], window_dim[1], x, y)
 
 def display():
-
     top = tkinter.Tk()
     top.title('Image editor')
 

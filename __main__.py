@@ -7,7 +7,8 @@ gui = editor.gui.display()
 def events():
     if len(evh.events) > 0:
         while len(evh.events) > 0:
-            evh.handle(evh.events.pop())
+            eventname, *eventparams = evh.events.pop()
+            evh.handle(eventname, eventparams)
         evh.update()
     gui.after(50, events)
 

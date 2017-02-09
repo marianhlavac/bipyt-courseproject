@@ -1,16 +1,22 @@
 import tkinter
-
-def get_nofile_widget(master):
-    widget = tkinter.Frame(master, bg = '#eee')
-
-    label = tkinter.Label(widget, text = 'No image file loaded, load ' +
-                'some using\nthe Load image button...', fg = '#666', bg = '#eee', height = 999)
-    label.pack(fill = tkinter.BOTH)
-
-    return widget
+import editor.store as store
+import editor.event_handler as evh
+from PIL import Image, ImageTk
 
 def get_image_widget(master):
     widget = tkinter.Frame(master, bg = '#eee')
+
+    picture = Image.open('./resources/noimageloaded.png')
+    photoimage = ImageTk.PhotoImage(picture)
+    store.state['picture'] = photoimage
+    canvas = tkinter.Label(widget, image = photoimage, bg = '#eee')
+    canvas.pack()
+
+    def update():
+        if store.state['picture'] is not None:
+            canvas.configure(image = store.state['picture'])
+
+    evh.register(update)
 
     return widget
 
@@ -20,6 +26,6 @@ def get_widget(master):
     text = tkinter.Label(widget, text='Preview', fg = '#aaa', bg = '#eee', pady = 10)
     text.pack()
 
-    get_nofile_widget(widget).pack(fill = tkinter.BOTH, expand = True)
+    get_image_widget(widget).pack()
 
     return widget

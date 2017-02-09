@@ -6,7 +6,8 @@ import editor.utils as utils
 widget_y_padding = 5
 widget_x_padding = 10
 
-def handle_inverse(ev): evh.capture(('inverse', 0))
+def handle_load(ev): evh.capture('load', 0)
+def handle_inverse(ev): evh.capture('inverse', 0)
 
 def get_widget(master):
     widget = tkinter.Frame(master)
@@ -16,6 +17,7 @@ def get_widget(master):
     open_file_frame.pack(fill = tkinter.X)
     open_file_btn = tkinter.Button(open_file_frame, text = 'Open file...')
     open_file_btn.pack(fill = tkinter.X)
+    open_file_btn.bind("<Button-1>", handle_load)
 
     get_title_widget(widget, 'FILE').pack(fill = tkinter.X, padx = widget_x_padding)
     get_fileinfo_widget(widget, ('thisisfilename')).pack(fill = tkinter.X)
