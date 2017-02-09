@@ -8,13 +8,16 @@ def get_image_widget(master):
 
     picture = Image.open('./resources/noimageloaded.png')
     photoimage = ImageTk.PhotoImage(picture)
-    store.state['picture'] = photoimage
+    store.state['picture'] = picture
     canvas = tkinter.Label(widget, image = photoimage, bg = '#eee')
+    canvas.image = photoimage
     canvas.pack(fill = tkinter.BOTH)
 
     def update():
         if store.state['picture'] is not None:
-            canvas.configure(image = store.state['picture'])
+            photoimage = ImageTk.PhotoImage(store.state['picture'])
+            canvas.configure(image = photoimage)
+            canvas.image = photoimage
 
     evh.register(update)
 

@@ -1,8 +1,10 @@
 import editor.fileop
 import editor.store as store
-import os
+import os, os.path
 import tkinter.filedialog
-from PIL import Image, ImageTk
+import tkinter.messagebox
+from PIL import Image, ImageTk, ImageFilter
+import PIL.ImageOps
 
 def start(params):
     print('Ready.')
@@ -10,10 +12,37 @@ def start(params):
 def load(params):
     filename = tkinter.filedialog.askopenfilename()
 
-    picture = Image.open(filename)
-    photoimage = ImageTk.PhotoImage(picture)
-    store.state['picture'] = photoimage
-    store.state['filename'] = filename.split('/')[-1]
+    if not os.path.isfile(filename):
+        alert(('Selected file does not exist.'))
+    else:
+        picture = Image.open(filename)
+        store.state['picture'] = picture
+        store.state['original_picture'] = picture
+        store.state['filename'] = filename.split('/')[-1]
+        store.state['filesize'] = os.stat(filename).st_size / 1048576
+        store.state['filedim'] = '{0}x{1}'.format(picture.size[0], picture.size[1])
+
+def alert(params):
+    print('Alert: {0}'.format(params))
+    tkinter.messagebox.showinfo('Alert', params)
+
+def revert(params):
+    store.state['picture'] = store.state['original_picture']
 
 def inverse(params):
-    print('Inverse button pressed.')
+    try:
+        store.state['picture'] = PIL.ImageOps.invert(store.state['picture'])
+    except:
+        alert(('This image is not supported to be inverted.'))
+
+def grayscale(params):
+    try:
+        store.state['picture'] = store.state['picture'].convert('L')
+    except:
+        alert(('This image is not supported to be converted to grayscale.'))
+
+def edges(params):
+    try:
+        store.state['picture'] = store.state['picture'].filter(ImageFilter.FIND_EDGES)
+    except:
+        alert(('This image is not supported to apply filters on.'))

@@ -7,7 +7,10 @@ widget_y_padding = 5
 widget_x_padding = 10
 
 def handle_load(ev): evh.capture('load', 0)
+def handle_revert(ev): evh.capture('revert', 0)
 def handle_inverse(ev): evh.capture('inverse', 0)
+def handle_grayscale(ev): evh.capture('grayscale', 0)
+def handle_edges(ev): evh.capture('edges', 0)
 
 def get_widget(master):
     widget = tkinter.Frame(master)
@@ -62,7 +65,7 @@ def get_fileinfo_widget(master, data):
     text = tkinter.Label(widget, justify = tkinter.LEFT, textvariable=fileinfo)
     text.pack(anchor = tkinter.W)
     evh.register(lambda: fileinfo.set(
-        'Filesize: %d MB\nDimesions: %s' % (store.state['filesize'], store.state['filedim'])))
+        'Filesize: %.2f MB\nDimesions: %s' % (store.state['filesize'], store.state['filedim'])))
 
     return widget
 
@@ -75,9 +78,11 @@ def get_convert_widget(master):
 
     gs_btn = tkinter.Button(widget, text = 'Convert to grayscale')
     gs_btn.pack(fill = tkinter.X)
+    gs_btn.bind("<Button-1>", handle_grayscale)
 
     edge_btn = tkinter.Button(widget, text = 'Detect edges')
     edge_btn.pack(fill = tkinter.X)
+    edge_btn.bind("<Button-1>", handle_edges)
 
     return widget
 
@@ -94,6 +99,7 @@ def get_export_widget(master):
 
     revert_btn = tkinter.Button(widget, text = 'Revert changes')
     revert_btn.pack(fill = tkinter.X)
+    revert_btn.bind("<Button-1>", handle_revert)
 
     export_btn = tkinter.Button(widget, text = 'Export to file...')
     export_btn.pack(fill = tkinter.X)
