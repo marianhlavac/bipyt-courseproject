@@ -11,7 +11,7 @@ def load(filename):
 
 # http://stackoverflow.com/a/31363374
 def brighten(image, brightness):
-    src = image.split()
+    src = image.convert('RGB').split()
     constant = (100 - brightness) / 100
 
     r, g, b = src
@@ -21,4 +21,4 @@ def brighten(image, brightness):
         g = src[1].point(lambda i: i / constant)
         b = src[2].point(lambda i: i / constant)
 
-    return Image.merge(image.mode, (r, g, b))
+    return Image.merge('RGB', (r, g, b)).convert(image.mode)
