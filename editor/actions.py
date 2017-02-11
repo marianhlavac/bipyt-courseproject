@@ -30,10 +30,7 @@ def revert(params):
     store.state['picture'] = store.state['original_picture']
 
 def inverse(params):
-    try:
-        store.state['picture'] = PIL.ImageOps.invert(store.state['picture'])
-    except:
-        alert(('This image is not supported to be inverted.'))
+    store.state['picture'] = PIL.ImageOps.invert(store.state['picture'])
 
 def grayscale(params):
     try:
@@ -42,13 +39,22 @@ def grayscale(params):
         alert(('This image is not supported to be converted to grayscale.'))
 
 def edges(params):
-    try:
-        store.state['picture'] = store.state['picture'].filter(ImageFilter.FIND_EDGES)
-    except:
-        alert(('This image is not supported to apply filters on.'))
+    store.state['picture'] = store.state['picture'].filter(ImageFilter.FIND_EDGES)
 
 def brightness(params):
-    #try:
-        store.state['picture'] = editor.fileop.brighten(store.state['picture'], params[0][0])
-    #except:
-    #    alert(('This image is not supported to apply filters on.'))
+    store.state['picture'] = editor.fileop.brighten(store.state['picture'], params[0][0])
+
+def export(params):
+    filename = editor.fileop.ask_for_save()
+    extension = filename.split('.')[-1]
+
+    if extension == 'png':
+        store.state['picture'].save(filename, 'PNG')
+    elif extension == 'jpg':
+        store.state['picture'].save(filename, 'JPEG')
+    elif extension == 'gif':
+        store.state['picture'].save(filename, 'GIF')
+    else:
+        raise NotImplementedError('This file type is not supported to be exported.')
+
+    print(extension)

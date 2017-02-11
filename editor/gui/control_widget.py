@@ -11,6 +11,7 @@ def handle_revert(ev): evh.capture('revert', 0)
 def handle_inverse(ev): evh.capture('inverse', 0)
 def handle_grayscale(ev): evh.capture('grayscale', 0)
 def handle_edges(ev): evh.capture('edges', 0)
+def handle_export(ev): evh.capture('export', 0)
 
 def get_widget(master):
     widget = tkinter.Frame(master)
@@ -109,5 +110,6 @@ def get_export_widget(master):
 
     export_btn = tkinter.Button(widget, text = 'Export to file...')
     export_btn.pack(fill = tkinter.X)
+    export_btn.bind("<Button-1>", handle_export)
 
     return widget

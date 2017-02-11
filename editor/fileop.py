@@ -3,7 +3,15 @@ from . import event_handler as evh
 import tkinter.filedialog
 
 def ask_for_file():
-    return tkinter.filedialog.askopenfilename()
+    return tkinter.filedialog.askopenfilename(
+        filetypes = [('png files', '.png'), ('jpg files', '.jpg'), ('gif files', '.gif')]
+    )
+
+def ask_for_save():
+    return tkinter.filedialog.asksaveasfilename(
+        defaultextension = '.png',
+        filetypes = [('png files', '.png'), ('jpg files', '.jpg'), ('gif files', '.gif')]
+    )
 
 def load(filename):
     file = Image.open(filename)
