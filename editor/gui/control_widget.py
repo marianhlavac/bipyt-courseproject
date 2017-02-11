@@ -92,6 +92,12 @@ def get_adjust_widget(master):
     brightness = tkinter.Scale(widget, from_ = -100, to = 100, orient = tkinter.HORIZONTAL)
     brightness.pack(fill = tkinter.X)
 
+    def handle_brightness(ev): evh.capture('brightness', brightness.get())
+
+    apply_btn = tkinter.Button(widget, text = 'Apply')
+    apply_btn.pack(fill = tkinter.X)
+    apply_btn.bind("<Button-1>", handle_brightness)
+
     return widget
 
 def get_export_widget(master):

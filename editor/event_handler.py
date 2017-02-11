@@ -5,7 +5,7 @@ events = [('start', [])]
 updates = []
 
 def handle(event, *params):
-    getattr(actions, event)(params)
+    getattr(actions, event)(params[0])
 
 def capture(event, *params):
     print(event)
