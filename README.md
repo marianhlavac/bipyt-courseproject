@@ -5,6 +5,17 @@ Course project for BI-PYT at FIT CTU
 
 ![Imgur](http://i.imgur.com/ZO0u0kT.png)
 
+## Features
+
+ - loading .png, .jpg and .gif files
+ - filters
+   - grayscale
+   - invert
+   - finding edges
+   - adjusting brightness
+ - reverting changes
+ - exporting to .png, .jpg and .gif
+
 ## Installation
 
 1. Install dependencies
@@ -18,3 +29,9 @@ Course project for BI-PYT at FIT CTU
   ```
    $ python3 .
   ```
+
+## Known bugs
+
+ - there is no functionality to zoom-out the pictures, working with large pictures is bad
+ - there is no support for RGBA pictures, all of them are converted to RGB
+ 
